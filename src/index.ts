@@ -6,7 +6,8 @@ import fastifyJwt from '@fastify/jwt';
 
 const fastify = Fastify({ logger: true });
 
-const databaseUrl = "postgres://myuser:mypassword@db:5432/mydatabase";
+const secretKey = process.env.SECRET_KEY;
+const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) throw new Error('DATABASE_URL is required');
 const pool = new Pool({ connectionString: databaseUrl });
 
@@ -34,7 +35,7 @@ async function createTables(pool: Pool) {
   `);
 }
 
-fastify.register(fastifyJwt, { secret: "chaudhary" });
+fastify.register(fastifyJwt, { secret: secretKey });
 
 interface UserRequestBody {
   username: string;
