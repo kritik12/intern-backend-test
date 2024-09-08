@@ -35,7 +35,7 @@ async function createTables(pool: Pool) {
   `);
 }
 
-fastify.register(fastifyJwt, { secret: secretKey });
+fastify.register(fastifyJwt, { secret: process.env.SECRET_KEY as string });
 
 interface UserRequestBody {
   username: string;
