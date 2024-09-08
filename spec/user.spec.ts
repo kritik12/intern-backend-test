@@ -143,8 +143,8 @@ describe('User API', () => {
   });
 
   test('POST /books - success', async () => {
-    jest.spyOn(fastify.jwt, 'verify').mockResolvedValueOnce({ id: 'user123' });
-
+    // @ts-ignore
+    jest.spyOn(fastify.jwt, 'verify').mockResolvedValueOnce({ id: 'user123' }); 
     pool.query.mockImplementationOnce((query, values) => {
       const [bookId, title, author] = values as [string, string, string];
       expect(title).toBe('The Great Gatsby');
@@ -171,6 +171,7 @@ describe('User API', () => {
   });
 
   test('POST /users/:userId/books/:bookId - success', async () => {
+    // @ts-ignore
     jest.spyOn(fastify.jwt, 'verify').mockResolvedValueOnce({ id: 'user123' });
 
     pool.query.mockImplementationOnce((query, values) => {
@@ -197,7 +198,7 @@ describe('User API', () => {
   });
 
   test('POST /users/:userId/books/:bookId - failure due to unauthorized action', async () => {
-
+    // @ts-ignore
     jest.spyOn(fastify.jwt, 'verify').mockResolvedValueOnce({ id: 'user456' }) ;
 
 
